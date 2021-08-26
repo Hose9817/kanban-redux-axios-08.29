@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import {connect} from "react-redux";
+import Board from "./Board";
+import 'bootstrap/dist/css/bootstrap.css';
+import {Button, Container} from "reactstrap";
+import {useEffect} from "react";
+import {addCard, deleteCard, getCards} from "./redux/action";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+function App(props) {
+
+    useEffect(() => {
+        props.getCards()
+    })
+
+    const addCardButtonHandler = () => {
+        const newCard = {
+            name: 'Summer Smith',
+            status: 'progress',
+            priority: 10
+        }
+        props.addCard(newCard)
+    }
+
+    return (
+        <Container>
+
+            <Button onClick={addCardButtonHandler}>Add new card</Button>
+
+            &nbsp;
+
+            <Board cards={props.cards} columns={props.columns} />
+
+        </Container>
+    );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+    cards: state.cards,
+    columns: state.columns
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    addCard: (card) => dispatch(addCard(card)),
+    getCards: () => dispatch(getCards())
+})
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
