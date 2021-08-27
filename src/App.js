@@ -3,7 +3,7 @@ import Board from "./Board";
 import 'bootstrap/dist/css/bootstrap.css';
 import {Button, Container} from "reactstrap";
 import {useEffect} from "react";
-import {addCard, deleteCard, getCards} from "./redux/action";
+import {addCard, getCards} from "./redux/action";
 
 
 
@@ -24,6 +24,8 @@ function App(props) {
 
     return (
         <Container>
+
+            <h1>Kanban with redux with axios</h1>
 
             <Button onClick={addCardButtonHandler}>Add new card</Button>
 
