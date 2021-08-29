@@ -2,22 +2,22 @@ import {connect} from "react-redux";
 import Board from "./Board";
 import 'bootstrap/dist/css/bootstrap.css';
 import {Button, Container} from "reactstrap";
+import {cardAdd, getCards} from "./redux/action";
 import {useEffect} from "react";
-import {addCard, getCards} from "./redux/action";
 
 
 
 function App(props) {
 
     useEffect(() => {
-        props.getCards()
-    })
+        props.getCards();
+    }, [])
 
     const addCardButtonHandler = () => {
         const newCard = {
-            name: 'Summer Smith',
-            status: 'progress',
-            priority: 10
+            name: 'Morty Smith',
+            status: 'todo',
+            priority: 1
         }
         props.addCard(newCard)
     }
@@ -43,8 +43,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    addCard: (card) => dispatch(addCard(card)),
-    getCards: () => dispatch(getCards())
+getCards: () => dispatch(getCards()),
+    addCard : (card) => dispatch(cardAdd(card))
 })
 
 

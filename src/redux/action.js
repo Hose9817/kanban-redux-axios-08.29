@@ -10,17 +10,26 @@ export function getCards() {
                 })
             })
             .catch()
+        axios.get('https://nazarov-kanban-server.herokuapp.com/column/')
+            .then(res => {
+                dispatch({
+                    type: 'GET_COLUMNS',
+                    payload: res.data
+                })
+            })
+            .catch(err => console.log('err', err))
     }
 }
 
-export function addCard(card) {
+export function cardAdd(newCard){
     return (dispatch) => {
-        axios.post('https://nazarov-kanban-server.herokuapp.com/card/', card)
-            .then(res => {
+       axios.post('https://nazarov-kanban-server.herokuapp.com/card/', newCard)
+           .then(res => {
                dispatch(getCards())
-            })
-            .catch()
+           })
+        .catch(err => console.log('err', err))
     }
+
 }
 
 export function deleteCard(cardId) {
